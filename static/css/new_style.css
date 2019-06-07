@@ -1,0 +1,21 @@
+.message_send{
+    float: right;
+    display: table;
+    border-radius: 7px;
+    background-color: rgba(47, 137, 196, 0.36) !important;
+}
+
+.message_get{
+    display: table;
+    border-radius: 7px;
+    background-color: rgba(139, 47, 196, 0.56) !important;
+}
+
+.chat-container{
+    border: solid #c2c2c2 1px;
+    border-radius: 5px;
+}
+
+.user_href{
+    color: deepskyblue !important;
+}

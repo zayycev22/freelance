@@ -1,0 +1,71 @@
+{% extends "base2.html" %}
+
+{% block content %}
+<div class="container" style="margin-top: 80px; max-width: 800px;">
+    <h3 id="top">Чат с {% if user != object.first %}<a href="/user/{{ object.first.id}}" class="user_href">{{ object.first }}{% else %}<a href="/user/{{ object.second.id}}" class="user_href">{{ object.second }}{% endif %}</a></h3>
+    <small><a href="#form">в конец</a></small>
+    <div class="chat-container p-3" id='chat-items'>
+    {% for chat in object.chatmessage_set.all %}
+    {% if user == chat.user %}
+    <div class="row"><div class="col-sm-5 offset-md-7 mt-2"><div class="p-2 message_send">{{ chat.message }}</div></div></div>
+    {% else %}
+    <div class="row"><div class="col-sm-5 mt-2"><div class="p-2 message_get">{{ chat.message }}</div></div></div>
+    {% endif %}
+    {% endfor %}
+    </div>
+
+    <form class="mt-4 mb-5" id='form' method='POST'> {% csrf_token %}
+        <input type="hidden" id="myUsername" value="{{ user.username }}" />
+        {{ form.as_p }}
+        <button type='submit' class='btn btn-info'>Отправить</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+// websocket scripts
+// console.log(window.location)
+var loc = windows.location
+var formData = $("#form")
+var msgInput = $("#id_message")
+var chatHolder = $("#chat-items")
+var me = $("#myUsername").val()
+
+var wsStart = 'ws://'
+if (loc.protocol == 'http:'){
+    wsStart = 'wss://'
+}
+var endpoint = wsStart + loc.host + loc.pathname
+
+var socket = new WebSocket(endpoint)
+
+socket.onmessage =function(e){
+    console.log("message", e)
+    var chatDataMsg = JSON.parse(e.data)
+    chatHolder.append("<li>" + chatDataMsg.message + "от" + chatDataMsg.username + "</li>")
+}
+socket.onopen=function(e){
+    console.log("open", e)
+    formData.submit(function(event){
+        event.preventDefault()
+        var msgText =msgInput.val()
+        chatHolder.append("<li>"+ msgText + "от" + me + "</li>")
+        //var formDataSerialized =formData.serialize()
+        var finalData = {
+            'message' : msgText
+        }
+        socket.send(JSON.stringify(finalData))
+       // msgInput.val("")
+        formData[0].reset()
+    })
+}
+socket.onerror=function(e){
+    console.log("error", e)
+}
+socket.onclose=function(e){
+    console.log("close", e)
+}
+</script>
+{% endblock %}

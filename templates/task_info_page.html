@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Task info
+{% endblock %}
+
+{% block content %}
+
+<div class="view full-page-intro" style="background-image: url({% static "img/task_intro2.jpg" %}); background-repeat: no-repeat; background-size: cover; height: 50vh"></div>
+<div class="container">
+    <div class="card bg-light mb-3" style="margin-top: 40px;">
+        <div class="card-header text-center" >
+            <h2>{{ task.title }}</h2>
+            <svg class="type_icon" viewBox="0 0 80 116" width="150px" height="200px">
+                    <linearGradient id="linear-gradient-brain">
+                        <stop offset="0%" stop-color="gold"/>
+                        <stop offset="100%" stop-color="teal"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-design">
+                        <stop offset="0%" stop-color="MediumVioletRed"/>
+                        <stop offset="100%" stop-color="deepskyblue"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-frontend">
+                        <stop offset="0%" stop-color="#D38312"/>
+                        <stop offset="100%" stop-color="#A83279"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-">
+                        <stop offset="0%" stop-color="#C2E59C"/>
+                        <stop offset="100%" stop-color="#64B3F4"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-backend">
+                        <stop offset="0%" stop-color="crimson"/>
+                        <stop offset="100%" stop-color="black"/>
+                    </linearGradient>
+
+                    <polygon class="bg" fill="url(#linear-gradient-{{task.type}})" points="0 0 80 0 80 96 40 116 0 96"></polygon>
+                    <path d="M2,94.763932 L40,113.763932 L78,94.763932 L78,0 L2,0 L2,94.763932 Z M0,0 L80,0 L80,96 L40,116 L0,96 L0,0 Z" fill="#FFF"></path>
+                </svg>
+                <!-- Вымпел -->
+                <div style="position: relative; top: -40px; left: 12px">{% include icons|add:task.type|add:".html" %}</div>
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <h5>Создано: <a href="/user/{{ user_id }}">{{ task.name }}</a></h5>
+            </div>
+            <br>
+            <p class="card-text text-center" style="font-size: 20px">{{ task.text }}</p>
+            <br>
+            <div class="card-title">
+                <h4>Стоимость: {{ task.cost }} &#8381;</h4>
+            </div>
+
+
+            {% if task.name == user.username %}
+                {% if task.status != 'В процессе' %}
+                    <form method="post" action="/remove_task/{{ task.id }}">{% csrf_token %}
+                        <div class="text-left">
+                            <button type="submit" class="btn ripe-malinka-gradient btn-lg">Удалить</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <form method="post" action="/remove_task/{{ task.id }}">{% csrf_token %}
+                        <div class="text-left">
+                            <button type="submit" class="btn ripe-malinka-gradient btn-lg" disabled>Удалить</button>
+                            <p class="text-danger">Кто-то делает это задание, его нельзя удалить</p>
+                        </div>
+                    </form>
+                {% endif %}
+            {% elif task.submit_user_id == user.id %}
+                {% if task.status == 'В процессе' %}
+                    <div class="row">
+                        <div class="col-2">
+                            <form method="post" action="/change_status/{{ task.id }}">{% csrf_token %}
+                                <div class="text-left">
+                                    <input type="hidden" name="status" value="deny" />
+                                    <button type="submit" class="btn blue-gradient text-light btn-lg">Отказаться</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-2">
+                            <form method="post" action="/change_status/{{ task.id }}">{% csrf_token %}
+                                <div class="text-left">
+                                    <input type="hidden" name="status" value="complete" />
+                                    <button type="submit" class="btn dusty-grass-gradient btn-lg">Завершить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <form method="post" action="/change_status/{{ task.id }}">{% csrf_token %}
+                        <div class="text-left">
+                            <input type="hidden" name="status" value="take" />
+                            <button type="submit" class="btn peach-gradient btn-lg" disabled>Взять!</button>
+                            <p class="text-success">Задание выполнено</p>
+                        </div>
+                    </form>
+                {% endif %}
+            {% else %}
+                {% if user.is_authenticated %}
+                    {%if task.status == 'Открыто' %}
+                        <form method="post" action="/change_status/{{ task.id }}">{% csrf_token %}
+                            <div class="text-left">
+                                <input type="hidden" name="status" value="take" />
+                                <button type="submit" class="btn peach-gradient btn-lg">Взять!</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <form method="post" action="/change_status/{{ task.id }}">{% csrf_token %}
+                            <div class="text-left">
+                                <input type="hidden" name="status" value="take" />
+                                <button type="submit" class="btn peach-gradient btn-lg" disabled>Взять!</button>
+                                <p class="text-info">Похоже кто-то делает это задание или уже сделал</p>
+                            </div>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <form method="post" action="/change_status/{{ task.id }}">{% csrf_token %}
+                        <div class="text-left">
+                            <input type="hidden" name="status" value="take" />
+                            <button type="submit" class="btn peach-gradient btn-lg" disabled>Взять!</button>
+                            <p class="text-info">Если вы хотите начать выполнять это задание, вам необходимо зарегистрироваться</p>
+                        </div>
+                    </form>
+                {% endif %}
+            {% endif %}
+
+
+            <div class="text-right">
+                <p>{{ task.date }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

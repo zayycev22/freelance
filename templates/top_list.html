@@ -1,0 +1,31 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block title %}
+    Main Page
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <table class="table table-hover" style="margin-top: 80px">
+        <thead>
+        <tr class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Никнейм</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Почта</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td><a href="user/{{ user.id }}">{{ user.username }}</a></td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

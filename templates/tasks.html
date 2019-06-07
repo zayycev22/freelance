@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="view full-page-intro" style="background-image: url({% static "img/task_intro2.jpg" %}); background-repeat: no-repeat; background-size: cover; height: 50vh"></div>
+
+<div class="container mt-0" style="margin-top: 100px; max-width: 1800px !important;">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                {% for task in tasks %}
+                    {% include 'task_card.html' %}
+                {% endfor %}
+                 {% for task in tasks2 %}
+                    {% include 'task_card.html' %}
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <h3 class="text-center" style="margin-top: 50px; margin-left: -50px; margin-bottom: -30px  ">Найти задание</h3>
+            <div class="card border-dark mr-5 mt-5" style="">
+                <form action="/{{ action_url }}" method="post"> {% csrf_token %}
+                    <div class="card-header">
+                        По цене
+                    </div>
+                    <div class="card-body text-dark">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="md-form form-group">
+                                    <input type="number" name="min_cost" class="form-control" id="inputPriceMin" placeholder="0.0">
+                                    <label for="inputPriceMin">Минимальная цена (РУБ)</label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="md-form form-group">
+                                    <input type="number" name="max_cost" class="form-control" id="inputPriceMax" placeholder="0.0">
+                                    <label for="inputPriceMax">Максимальная цена (РУБ)</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-header">
+                        По типу
+                    </div>
+                    <div class="card-body text-dark">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item list-group-item-action">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Check1" name="find[]" value="design">
+                                    <label class="custom-control-label" for="Check1">Дизайн</label>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-group-item-action">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Check2" name="find[]" value="frontend">
+                                    <label class="custom-control-label" for="Check2">Фронтэнд</label>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-group-item-action">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Check3" name="find[]" value="backend">
+                                    <label class="custom-control-label" for="Check3">Бэкенд</label>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-group-item-action">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Check4" name="find[]" value="brain">
+                                    <label class="custom-control-label" for="Check4">Поработать мозгами</label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div>
+                                    <button type="submit" class="btn btn-md" style="background-color: #580085; color: white;">Найти</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <a class="navbar-brand" href="/"><strong>NewLance</strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="TaskDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Задания</a>
+                <div class="dropdown-menu" aria-labelledby="TaskDropdown">
+                    <a class="dropdown-item" href="/new_task">Создать задание</a>
+                    <a class="dropdown-item" href="/my_tasks">Мои задания</a>
+                    <a class="dropdown-item" href="/all_tasks">Все задания</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/top">Все пользователи</a>
+            </li>
+
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/all_tasks">Все задания</a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-nav nav-flex-icons">
+            {% if user.is_authenticated %}
+             <!-- <img src="{{ user.image }}"> -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="UserDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                <div class="dropdown-menu dropdown-menu-right user-dropdown" aria-labelledby="UserDropdown" style="border-radius: 9px !important;">
+                    <a class="dropdown-item" href="/change_pass">Сменить пароль</a>
+                    <a class="dropdown-item" href="/user/info">Профиль</a>
+                     <div class="dropdown-divider m-0"></div>
+                    <a class="dropdown-item exit_button" href="/user/logout">Выйти</a>
+                </div>
+            </li>
+            {% else %}
+                <li class="nav-item dropdown">
+                    <a href="#" class="btn purple-gradient btn-sm dropdown-toggle" id="navbarDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <form class="px-4 py-3" method="post" action="/user/login">{% csrf_token %}
+                            <div class="form-group">
+                                <label for="Log">Почта/Логин</label>
+                                <input type="text" name="username" class="form-control" id="Log" oninput=" allowL(checkL(Log.value));" placeholder="email@example.com">
+                                <font id="TextL" color="red" style="Opacity: 0; position: absolute;">Некорректный логин</font>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Pass">Пароль</label>
+                                <input type="password" name="password" class="form-control" id="Pass" oninput=" allowP(checkP(Pass.value));" aria-describedby="Password" placeholder="password">
+                                <font id="TextP" color="red" style="Opacity: 0; position: absolute;">Некорректный пароль</font>
+                                <a href="/registration" class="p-0" style="color: #580085;"><small id="Password" class="form-text">Регистрация</small></a>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                <label class="form-check-label" for="dropdownCheck">Запомнить меня</label>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4" id="But">
+                                    <button type="submit" class="btn" style="background-color: #580085; color: white;">Войти</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

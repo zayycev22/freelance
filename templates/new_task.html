@@ -1,0 +1,56 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block title %}
+    New task
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form method="post" action="/user/create_task" style="margin-top: 80px;">{% csrf_token %}
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="md-form form-group">
+                    <input type="text" name="title" class="form-control" id="inputName">
+                    <label for="inputName">Название</label>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="md-form form-group">
+                    <input type="text" class="form-control" id="inputPassword4MD" placeholder="{{ user.username }}" readonly>
+                    <label for="inputPassword4MD">Создатель</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="md-form form-group">
+                    <textarea name="description" id="textarea-char-counter" class="form-control md-textarea"></textarea>
+                    <label for="textarea-char-counter">Описание задачи</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="md-form form-group">
+                    <input type="text" name="cost" class="form-control" id="inputPrice" placeholder="0.0">
+                    <label for="inputPrice">Цена (РУБ)</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <select name="type" class="browser-default custom-select mt-2">
+                    <option value="design" selected>Дизайн</option>
+                    <option value="backend">Бэкенд</option>
+                    <option value="frontend">Фронтэнд</option>
+                    <option value="brain">Поработаь мозгами</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-md" style="background-color: #580085; color: white;">Создать</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

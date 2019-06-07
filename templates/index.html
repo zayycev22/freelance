@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Main Page
+{% endblock %}
+
+{% block content %}
+
+<div class="view full-page-intro img-fluid" style="background-image: url({% static "img/intro.jpg" %}); background-repeat: no-repeat; background-size: cover; height: 100vh">
+</div>
+
+<div class="container ml-5 mt-5 mb-5 mr-0 row" style="max-width: 1800px">
+    <div class="row col-md-8">
+        <div class="col-sm-4 mt-5">
+            <div class="card shadow-none">
+                <div class="card-body">
+                    <h5 class="card-title">Покори вершины</h5>
+                    <p class="card-text">Зарегистрируйся и присоединись к команде фрилансеров со всего мира. <br> Люди нуждаются в твоей помощи!</p>
+                    <a href="registration" class="btn blue-gradient" style="background-color: #580085; color: white;">Зарегестрироваться</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8 mt-5" style="max-width: 444px;">
+            <div>
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/programmer.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Зайцев <br> Юра</p>
+                    </div>
+                </div>
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/lesha.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Алексей <br> Юдаев</p>
+                    </div>
+                </div>
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/kolya.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Просто <br> Коля</p>
+                    </div>
+                </div>
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/danya2.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Даниил <br> Сурков</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2" style="max-width: 310px; margin-left: 51px">
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/kirill.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Кирилл <br> Абашин</p>
+                    </div>
+                </div>
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/anna.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Анна <br> Хадорич</p>
+                    </div>
+                </div>
+                <div class="view overlay zoom user_photo">
+                    <img src="{% static "img/george.png" %}" class="img-fluid" alt="zoom">
+                    <div class="mask flex-center waves-effect waves-light">
+                        <p class="white-text">Георгий <br> Погребной</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mt-5" style="max-width: 400px;">
+        <h3>Создано совместно с</h3>
+        <div class="view" style="width: 400px;">
+            <a href="https://informatics.ru/"><img class="img-fluid" src="{% static "img/mshp2.png" %}" alt=""></a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card card-image card-my" style="background-image: url({% static "img/jumbotron.jpg" %}); background-size: cover;">
+<div class="text-white text-center py-5 px-4 my-5">
+    <div>
+        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold">Начни сейчас</h2>
+        <p class="mx-5 mb-5">
+            Выбери задание для себя и начни работать прямо сейчас
+        </p>
+        <a class="btn btn-outline-white btn-md" href="/all_tasks"><i class="fas fa-clone left"></i> Просмотр заданий</a>
+    </div>
+</div>
+</div>
+
+
+<div class="row mt-5 ml-2 mr-0">
+    <div class="col-sm-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">title</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas autem, nisi, tempore non delectus provident exercitationem quos mollitia distinctio illum. Sed a, dignissimos nihil id sit aliquam, repellat iure non.</p>
+                <a href="#" class="btn" style="background-color: #580085; color: white;">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card shadow-none">
+            <div class="card-body">
+                <h5 class="card-title">Title</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore qui autem laborum itaque debitis possimus tempora ex laboriosam ad esse officiis similique animi culpa, sint, necessitatibus a odio ipsam quisquam.</p>
+                <a href="#" class="btn" style="background-color: #580085; color: white;">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

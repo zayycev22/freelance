@@ -1,0 +1,38 @@
+<div class="card col-xl-3 col-md-4 col-sm-6 mr-5 mt-5" style="width: 350px !important">
+    <div class="card-body">
+
+        <!-- Вымпел -->
+        <svg class="type_icon" viewBox="0 0 80 116" width="60px" height="80px">
+            <linearGradient id="linear-gradient-brain">
+                <stop offset="0%" stop-color="gold"/>
+                <stop offset="100%" stop-color="teal"/>
+            </linearGradient>
+            <linearGradient id="linear-gradient-design">
+                <stop offset="0%" stop-color="MediumVioletRed"/>
+                <stop offset="100%" stop-color="deepskyblue"/>
+            </linearGradient>
+            <linearGradient id="linear-gradient-frontend">
+                <stop offset="0%" stop-color="#D38312"/>
+                <stop offset="100%" stop-color="#A83279"/>
+            </linearGradient>
+            <linearGradient id="linear-gradient-">
+                <stop offset="0%" stop-color="#C2E59C"/>
+                <stop offset="100%" stop-color="#64B3F4"/>
+            </linearGradient>
+            <linearGradient id="linear-gradient-backend">
+                <stop offset="0%" stop-color="crimson"/>
+                <stop offset="100%" stop-color="black"/>
+            </linearGradient>
+
+            <polygon class="bg" fill="url(#linear-gradient-{{task.type}})" points="0 0 80 0 80 96 40 116 0 96"></polygon>
+            <path d="M2,94.763932 L40,113.763932 L78,94.763932 L78,0 L2,0 L2,94.763932 Z M0,0 L80,0 L80,96 L40,116 L0,96 L0,0 Z" fill="#FFF"></path>
+        </svg>
+        <!-- Вымпел -->
+        {% include icons|add:task.type|add:".html" %}
+
+        <h4 class="card-title" style="width: 200px;">{{ task.title }}</h4>
+        <p class="card-text mt-5 text-truncate">{{ task.text }}</p>
+        <p class="font-weight-bold text-right">{{ task.cost }} руб</p>
+        <a href="/task/{{ task.id }}" class="btn btn-outline-warning waves-effect btn-lg btn-block">Подробнее</a>
+    </div>
+</div>

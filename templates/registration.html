@@ -1,0 +1,97 @@
+    {% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    registration
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container" style="margin-top: 80px;">
+    <h2>Регистрация</h2>
+<form method="post" action="/user/registration" style="margin-top: 80px;">{% csrf_token %}
+
+    <!--имя-->
+    <div class="form-group" style="margin-bottom: 30px">
+        <div class="row md-form">
+            <div class="col-md-7">
+                <input type="text" name="first_name" class="form-control" placeholder="Имя" id="Name" oninput=" allowName(checkName(Name.value));">
+                <small id="nam" class="form-text text-muted">Имя должно состоять из русских букв и начинаться с заглавной буквы </small>
+            </div>
+            <div class="col-md-5" id="name_text">
+            </div>
+        </div>
+    </div>
+
+    <!--фамилия-->
+    <div class="form-group" style="margin-bottom: 30px">
+        <div class="row md-form">
+            <div class="col-md-7">
+                <input type="text" name="second_name" class="form-control" placeholder="Фамилия" id="Surname" oninput=" allowSurname(checkName(Surname.value));">
+                <small id="sur" class="form-text text-muted">Фамилия должна состоять из русских букв и начинаться с заглавной буквы </small>
+            </div>
+            <div class="col-md-5" id="surname_text">
+            </div>
+        </div>
+    </div>
+
+    <!--логин-->
+    <div class="form-group" style="margin-bottom: 30px">
+        <div class="row md-form">
+            <div class="col-md-7">
+                <input aria-describedby="login" type="text" name="username" class="form-control" placeholder="Логин" id="Llogin" oninput=" allowLogin(checkLogin(Llogin.value));">
+                <small id="login" class="form-text text-muted">Логин должен состоять из латинских букв нижнего и верхнего регистра, цифр и тире </small>
+            </div>
+            <div class="col-md-5" id="login_text">
+            </div>
+        </div>
+    </div>
+
+    <!--почта-->
+    <div class="form-group" style="margin-bottom: 30px">
+        <div class="row md-form">
+            <div class="col-md-7">
+                <input  type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Email" id="Email" oninput=" allowEmail(checkMail(Email.value));">
+                <small id="mail" class="form-text text-muted">example@email.com</small>
+            </div>
+            <div class="col-md-5" id="mail_text">
+            </div>
+        </div>
+    </div>
+
+    <!--пароль-->
+    <div class="form-group" style="margin-bottom: 30px">
+        <div class="row md-form">
+            <div class="col-md-7">
+                <input type="password" class="form-control" name="password" aria-describedby="password" placeholder="Пароль" id="Ppassword" oninput=" allowPassword(checkPassword(Ppassword.value));">
+                <small id="password" class="form-text text-muted">Пароль: больше 8 символов, латинские буквы верхнего и нижего регистра и цифры </small>
+                </div>
+            <div class="col-md-5" id="password_text">
+            </div>
+        </div>
+    </div>
+
+    <!--о себе-->
+    <div class="form-group">
+        <div class="md-form">
+            <textarea id="form4text" class="md-textarea form-control" name="description" rows="3"></textarea>
+            <label for="form4text">Расскажи о себе</label>
+        </div>
+    </div>
+
+
+    <!--<div class="form-check">-->
+        <!--<input type="checkbox" class="form-check-input" id="PrivacySubmit">-->
+        <!--<label class="form-check-label" for="PrivacySubmit">Согласен <a href="#">с политикой конфиденциальности</a></label>-->
+    <!--</div>-->
+
+    <!--кнопка-->
+    <div id="Button">
+        <button type="submit" class="btn" style="background-color: #580085; color: white;">Зарегестрироваться</button>
+    </div>
+
+
+</form>
+</div>
+
+{% endblock %}

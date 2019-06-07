@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Информация о пользователе
+{% endblock %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 110px;">
+        <h2>Паспорт</h2>
+    <form class="mt-5">
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="staticName" style="color: #580085">Имя</label>
+                <input type="text" readonly class="form-control" id="staticName" value="{{ user_info.first_name }}">
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="staticSurname" style="color: #580085">Фамилия</label>
+                <input type="text" readonly class="form-control" id="staticSurname" value="{{ user_info.last_name }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="staticLogin" class="col-form-label" style="color: #580085">Логин</label>
+            <input type="text" readonly class="form-control" id="staticLogin" value="{{ user_info.username }}">
+        </div>
+        <div class="form-group">
+            <label for="staticEmail" class="col-form-label" style="color: #580085">Электронная почта</label>
+            <input type="text" readonly class="form-control" id="staticEmail" value="{{ user_info.email }}">
+        </div>
+        <div class="form-group">
+            <label for="staticText" class="col-form-label" style="color: #580085">Описание</label>
+            <input type="text" readonly class="form-control" id="staticText" value="{{ info.text }}">
+        </div>
+        {% if user.username == user_info.username %}
+        <a href="/user/change_info" class="btn" style="background-color: #580085; color: white;">Редактировать</a>
+        <a href="/change_pass"> Сменить пароль </a>
+        {% else %}
+        <a href="/messages/{{ user_info.username }}/" class="btn btn-info">Написать</a>
+        {% endif %}
+    </form>
+    </div>
+
+
+{% endblock %}
